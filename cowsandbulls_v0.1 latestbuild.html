@@ -1,0 +1,206 @@
+﻿<meta charset="utf-8">
+<script type="text/javascript">
+   
+alert('Welcome to the game "Bulls and Cows".')
+alert('Rules of the game:\nThe computer guesses 4 random numbers in the range from 1 to 9 inclusive. The player must guess this sequence up to the position of each number.\nThe computer will report the number of numbers guessed by the player without matching their positions in the secret number as the number of cows. The numbers guessed up to the position will be called bulls. The player wins if they guess the correct number.')
+        
+  var byk = '';
+  var cow = '';
+
+function randomInteger (min, max) 
+  {
+    var rand = min + Math.random() * (max + 1 - min);
+        rand = Math.floor(rand); return rand; 
+  }
+        
+function arrayCheck (arrayOne, arrayTwo)
+  {        
+   
+      for (x=0; x<4; x++)
+      {
+          if(arrayOne[x] == arrayTwo[x])
+            {
+              count_bull++;   
+            }
+
+          else if (arrayOne[x] == arrayTwo[0] || arrayOne[x] == arrayTwo[1] || arrayOne[x] == arrayTwo[2] || arrayOne[x] == arrayTwo[3])
+            {
+              caunt_cow++;    
+            }
+      }
+  }
+        
+function sklonenieBulls (variableOne)
+  {
+      
+      if (variableOne == 1)
+         {
+            byk = 'bull';
+         }
+           
+      else if (variableOne == 0)
+         {
+            count_bull = 'no';
+            byk = 'bulls';
+         }
+           
+      else
+         {
+            byk = 'bull';
+         }
+           
+           
+   }
+        
+function sklonenieCows (variableTwo)
+  {
+      
+      if (variableTwo == 1)
+        {
+            cow = 'cow';
+        }
+
+      else if (variableTwo == 0)
+       {
+            caunt_cow = 'no';
+            cow = 'cows';
+       }
+
+      else
+       {
+           cow = 'cow';
+       }           
+  }
+
+function validCheck(array)
+  {
+
+    var message = 'The information entered does not meet the requirements';
+    for (i=0; i<4; i++)
+    {
+      if (array[i] < 1)
+      {
+        return false;
+        break;
+      }
+      else if (isNaN(array[i]))
+      {
+        return false;
+        break;
+      }
+
+      else if (array.length > 4 || array.length < 4)
+      {
+        return false;
+        break;
+      }
+    }
+
+    var n = array.length;;
+    for (i=0; i<n-1; i++)
+    {
+      for (j=i+1; j<n; j++)
+      {
+        if (array[i] == array[j])
+        {
+          return false;
+          break;
+        }
+      }
+      if (array[i] == array[j])
+        {
+          break;
+        }
+    }
+  }
+
+function makeNumber (arrayOne)
+  {
+    for (i=0; i<4; i++)
+    {
+      arrayOne[i] = parseInt(arrayOne[i]);
+    }
+  } 
+
+function winCheck(number)
+  {
+      if (number != 4)
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+  }
+
+
+
+do {
+var try_count = 0;
+var array = [];
+
+
+  for(i=0; i<4; i++)
+    {
+      var n = randomInteger(1,9);
+
+      if (array[0] != n && array[1] != n && array[2] != n && array[3] != n)
+        {
+          array[i] = n;
+        }
+      else
+        {
+          i--;
+        }    
+    }
+
+do {
+var count_bull = 0;
+var caunt_cow = 0;
+
+
+
+var answer = prompt('Enter 4 numbers between 1 and 9 without commas. Or type Q to exit');
+try_count++;
+if (answer == 'q' || answer == 'Q' || answer == 'й' || answer == 'Й')
+{
+  break;
+}
+
+var b = String(answer).split('');
+
+makeNumber(b);
+if (validCheck(b) == false)
+{
+  alert ('The entered data does not match');
+  try_count--;
+}
+
+
+arrayCheck(array, b);
+sklonenieBulls (count_bull);
+sklonenieCows (caunt_cow);
+        
+if (winCheck(count_bull) == true)
+{
+  alert ("Congratulations, you've won.")
+  break;
+}
+
+else if (validCheck(b) != false)
+{
+  alert('You have ' + count_bull + ' ' + byk + ' and ' + caunt_cow + ' ' + cow + '.')
+}
+
+} while (count_bull != 4);
+if (answer == 'q' || answer == 'Q' || answer == 'й' || answer == 'Й')
+{
+  break;
+}
+
+var a = prompt ('Game over. Number of attempts spent: ' + try_count + '. Leave this field blank to exit');
+} while(a == 1);
+        
+
+</script>
